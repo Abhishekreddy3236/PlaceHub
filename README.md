@@ -222,7 +222,7 @@ npm run dev
 
 ## Author
 
-Konda Venkata Sai Harikrishna
+Abhishek Reddy Kotha
 
 ---
 
