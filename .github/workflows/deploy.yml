@@ -1,0 +1,45 @@
+name: Deploy Backend
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "server/**"
+      - ".github/workflows/deploy.yml"
+      - "package.json"
+      - "package-lock.json"
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout latest code
+        uses: actions/checkout@v5
+
+      - name: Deploy to DigitalOcean
+        run: |
+          set -e
+
+          echo "Starting deployment..."
+
+          cd /home/placehub/PlaceHub
+
+          git fetch --prune origin
+          git reset --hard origin/main
+
+          cd server
+
+          npm ci --omit=dev
+
+          pm2 reload placehub-api --update-env
+
+          echo "Deployment completed successfully."
+
+          pm2 status placehub-api

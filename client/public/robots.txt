@@ -1,0 +1,16 @@
+User-agent: *
+
+# Allow the public website
+Allow: /
+
+# Prevent indexing of application routes
+Disallow: /login
+Disallow: /register
+Disallow: /admin/
+Disallow: /student/
+Disallow: /staff/
+Disallow: /hr/
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://placehub.in/sitemap.xml
